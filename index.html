@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aubrey's Safety & Recovery Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070608; --bg2:#0f0d12; --card:#15121a; --line:#2a2331;
+  --pink:#ff4fa3; --pink2:#ff8ac4; --pink-soft:rgba(255,79,163,.14);
+  --text:#f6eef3; --muted:#a894a0; --green:#5fd39a; --yellow:#ffd166; --red:#ff5c5c;
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.55;
+  background-image:radial-gradient(1200px 600px at 80% -10%,rgba(255,79,163,.18),transparent 60%),radial-gradient(800px 500px at -10% 30%,rgba(255,79,163,.08),transparent 60%)}
+a{color:var(--pink2)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 80px}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(7,6,8,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{max-width:900px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bar h1{font-size:1.15rem;flex:1;min-width:180px}
+.bar h1 span{color:var(--pink)}
+.status{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.dot.ok{background:var(--green);box-shadow:0 0 10px var(--green)}
+.dot.saving{background:var(--yellow)}
+.dot.err{background:var(--red)}
+nav.tabs{max-width:900px;margin:0 auto;padding:0 16px 10px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs a{flex:0 0 auto;font-size:.8rem;text-decoration:none;color:var(--muted);border:1px solid var(--line);padding:6px 11px;border-radius:999px;background:var(--bg2)}
+nav.tabs a:hover{color:var(--pink2);border-color:var(--pink)}
+
+/* hero */
+.hero{padding:48px 0 28px}
+.hero h2{font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;font-weight:700}
+.hero h2 em{color:var(--pink);font-style:italic}
+.hero p{color:var(--muted);max-width:560px;margin:14px 0 0}
+.banner{margin:18px 0 0;padding:12px 14px;border:1px solid #5a3a1a;background:rgba(255,209,102,.08);border-radius:12px;font-size:.85rem;color:#ffe3a3;display:none}
+.banner.show{display:block}
+
+/* sections */
+section.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin:22px 0;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+section.card>h2{font-size:1.45rem;display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+section.card>h2 .num{font-family:Inter;font-size:.75rem;font-weight:600;color:var(--pink);letter-spacing:.12em;text-transform:uppercase}
+.intro{color:var(--muted);font-size:.92rem;margin:0 0 14px}
+.q{margin:18px 0 0}
+.q label{display:block;font-weight:500;font-size:.95rem;margin-bottom:8px}
+textarea{width:100%;min-height:84px;resize:vertical;background:var(--bg2);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;font-size:.95rem;line-height:1.5;transition:border-color .15s,box-shadow .15s}
+textarea:focus,input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 3px var(--pink-soft)}
+.zone{border-left:4px solid var(--line);padding-left:14px;margin-top:18px}
+.zone.green{border-color:var(--green)} .zone.yellow{border-color:var(--yellow)} .zone.red{border-color:var(--red)}
+.zone h3{font-size:1.05rem;margin-bottom:2px}
+.zone.green h3{color:var(--green)} .zone.yellow h3{color:var(--yellow)} .zone.red h3{color:var(--red)}
+.zone p{color:var(--muted);font-size:.9rem;margin:0 0 8px}
+.crisis{margin-top:18px;padding:14px;border-radius:12px;background:rgba(255,92,92,.08);border:1px solid rgba(255,92,92,.35);font-size:.9rem}
+.crisis b{color:#ff8a8a}
+
+/* my why */
+.why-block{margin-top:18px}
+.why-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:560px;margin:0 auto}
+.why-strip img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 20%;border-radius:12px;border:2px solid var(--pink);box-shadow:0 0 0 3px var(--pink-soft);display:block;cursor:zoom-in}
+.why-caption{font-family:Fraunces,Georgia,serif;font-size:clamp(1.4rem,5vw,2.1rem);font-weight:700;line-height:1.1;text-align:center;margin:12px 0 6px;outline:none;border-radius:8px;padding:4px}
+.why-caption:focus{box-shadow:0 0 0 3px var(--pink-soft)}
+.why-caption em{color:var(--pink);font-style:italic}
+h3.sub{font-size:1.1rem;color:var(--muted);margin:26px 0 4px;font-weight:500}
+.why-list{list-style:none;margin:0;padding:0}
+.why-list li{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;margin:8px 0;background:var(--bg2);border:1px solid var(--line);border-radius:12px}
+.why-list li .heart{color:var(--pink);font-size:1.1rem;line-height:1.4;flex:0 0 auto}
+.why-list li .txt{flex:1;font-family:Fraunces,Georgia,serif;font-size:1.1rem;line-height:1.4;outline:none;min-width:0;word-break:break-word}
+.why-list li .txt:focus{color:var(--pink2)}
+.why-list li.first .txt{font-size:1.35rem;font-weight:700;color:var(--pink)}
+.why-list li.first{border-color:var(--pink);background:linear-gradient(180deg,rgba(255,79,163,.12),var(--bg2))}
+.del{background:none;border:0;color:var(--muted);cursor:pointer;font-size:1rem;padding:2px 6px;border-radius:6px;flex:0 0 auto}
+.del:hover{color:var(--red);background:rgba(255,92,92,.1)}
+.addrow{display:flex;gap:8px;margin-top:10px}
+.addrow input{flex:1;background:var(--bg2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;min-width:0}
+button.pink{background:var(--pink);color:#140611;border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+button.pink:hover{background:var(--pink2)}
+button.ghost{background:transparent;color:var(--pink2);border:1px dashed var(--pink);border-radius:10px;padding:10px 14px;font:inherit;cursor:pointer}
+button.ghost:hover{background:var(--pink-soft)}
+
+/* gallery */
+.gallery{columns:2;column-gap:10px;margin-top:22px}
+@media(min-width:640px){.gallery{columns:3}}
+.gallery img{width:100%;display:block;border-radius:12px;margin:0 0 10px;border:1px solid var(--line);break-inside:avoid;cursor:zoom-in;transition:transform .2s,border-color .2s}
+.gallery img:hover{transform:scale(1.02);border-color:var(--pink)}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:50;cursor:zoom-out;padding:16px}
+.lightbox.show{display:flex}
+.lightbox img{max-width:100%;max-height:100%;border-radius:12px;box-shadow:0 0 0 2px var(--pink)}
+
+/* custom lists */
+.lists{display:grid;gap:14px;margin-top:12px}
+.list{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px}
+.list .head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.list .head .title{flex:1;font-family:Fraunces,Georgia,serif;font-size:1.15rem;font-weight:700;outline:none;color:var(--pink2)}
+.list ul{list-style:none;margin:0;padding:0}
+.list li{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line)}
+.list li input[type=checkbox]{accent-color:var(--pink);margin-top:4px;flex:0 0 auto}
+.list li .txt{flex:1;outline:none;min-width:0;word-break:break-word}
+.list li.done .txt{text-decoration:line-through;color:var(--muted)}
+
+/* agreement */
+.sign{display:grid;gap:14px;margin-top:14px}
+@media(min-width:640px){.sign{grid-template-columns:1fr 1fr}}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:40px}
+footer span{color:var(--pink)}
+.gate{position:fixed;inset:0;background:var(--bg);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.gate.show{display:flex}
+.gate form{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;max-width:340px;width:100%;text-align:center}
+.gate input{width:100%;margin:14px 0;background:var(--bg2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px;font:inherit;text-align:center;letter-spacing:.3em}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate"><form id="gateForm"><h2>Aubrey & Will</h2><p style="color:var(--muted);font-size:.9rem">Enter the passcode to open the plan.</p><input id="gateInput" type="password" inputmode="numeric" autocomplete="off"><button class="pink" style="width:100%">Open</button></form></div>
+
+<header>
+  <div class="bar">
+    <h1>Aubrey's <span>Safety & Recovery</span> Plan</h1>
+    <div class="status"><span class="dot" id="dot"></span><span id="statusText">Connecting…</span></div>
+  </div>
+  <nav class="tabs">
+    <a href="#why">My Why</a><a href="#s1">Warning Signs</a><a href="#s2">Zones</a><a href="#s3">Coping</a><a href="#s4">Support</a><a href="#s5">Trust</a><a href="#s6">Sobriety</a><a href="#s7">Continuity</a><a href="#s8">Emergency</a><a href="#s9">Agreement</a><a href="#lists">Lists</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h2>A plan we are creating <em>together.</em></h2>
+    <p>Not rules, judgment, or control. We want to understand needs, recognize difficult moments, and know where to find help. Everything here saves automatically and syncs live between us.</p>
+    <div class="banner" id="banner"></div>
+  </div>
+
+  <!-- MY WHY -->
+  <section class="card" id="why">
+    <h2><span class="num">★</span>My Why</h2>
+    <p class="intro">The reasons that matter when it gets hard.</p>
+    <div class="why-block">
+      <div class="why-strip">
+        <img src="images/hardhat.jpg" alt="Aubrey"><img src="images/aubrey.jpg" alt="Aubrey"><img src="images/car-selfie.jpg" alt="Aubrey">
+      </div>
+      <p class="why-caption" contenteditable="true" spellcheck="false" data-cap="self">Staying sober for my <em>beautiful</em> self.</p>
+    </div>
+    <div class="why-block">
+      <div class="why-strip">
+        <img src="images/kiss.jpg" alt="Aubrey and Will"><img src="images/tongues.jpg" alt="Aubrey and Will"><img src="images/paint.jpg" alt="Aubrey and Will">
+      </div>
+      <p class="why-caption" contenteditable="true" spellcheck="false" data-cap="will">Staying sober for <em>Will</em>.</p>
+    </div>
+    <div class="why-block">
+      <div class="why-strip">
+        <img src="images/plane-paci.jpg" alt="Son"><img src="images/airport.jpg" alt="Aubrey and son"><img src="images/porch.jpg" alt="Will and son">
+      </div>
+      <p class="why-caption" contenteditable="true" spellcheck="false" data-cap="son">Staying sober for <em>my son</em>.</p>
+    </div>
+    <h3 class="sub">More of my whys</h3>
+    <ul class="why-list" id="whyList"></ul>
+    <div class="addrow"><input id="whyInput" placeholder="Add another why…" maxlength="300"><button class="pink" id="whyAdd">Add</button></div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section class="card" id="s1">
+    <h2><span class="num">01</span>Recognizing My Warning Signs</h2>
+    <div class="q"><label>How do I know when my mental health is starting to decline?</label><textarea data-key="a1"></textarea></div>
+    <div class="q"><label>What situations, emotions, or experiences trigger anxiety, depression, or cravings?</label><textarea data-key="a2"></textarea></div>
+    <div class="q"><label>What changes might Will notice when I am struggling?</label><textarea data-key="a3"></textarea></div>
+  </section>
+
+  <section class="card" id="s2">
+    <h2><span class="num">02</span>My Green, Yellow & Red Zones</h2>
+    <div class="zone green"><h3>GREEN — I am doing well</h3><p>Feeling stable and managing my emotions. What does a good day look like? What habits and support help?</p><textarea data-key="a4"></textarea></div>
+    <div class="zone yellow"><h3>YELLOW — I am starting to struggle</h3><p>Overwhelmed, isolating, or noticing cravings. What are my early signs, what can I do, and what support do I want?</p><textarea data-key="a5"></textarea></div>
+    <div class="zone red"><h3>RED — I need extra help</h3><p>Serious crisis, unsafe feelings, or significant relapse risk. Who do I contact, where can I go, and what should Will do?</p><textarea data-key="a6"></textarea></div>
+    <div class="crisis"><b>Immediate danger: call 911.</b> U.S. mental health / substance-use crisis support: call or text <b>988</b>.</div>
+  </section>
+
+  <section class="card" id="s3">
+    <h2><span class="num">03</span>Coping Skills & Healthy Alternatives</h2>
+    <div class="q"><label>What helps me calm down when overwhelmed?</label><textarea data-key="a7"></textarea></div>
+    <div class="q"><label>What healthy things can I do instead of using substances?</label><textarea data-key="a8"></textarea></div>
+    <div class="q"><label>What makes my emotions or cravings worse?</label><textarea data-key="a9"></textarea></div>
+  </section>
+
+  <section class="card" id="s4">
+    <h2><span class="num">04</span>How Will Can Support Me</h2>
+    <div class="q"><label>When I struggle emotionally, what do I need most from Will?</label><textarea data-key="a10"></textarea></div>
+    <div class="q"><label>When I need space, how can I communicate that and agree to reconnect?</label><textarea data-key="a11"></textarea></div>
+    <div class="q"><label>What small actions help me feel loved and supported?</label><textarea data-key="a12"></textarea></div>
+    <div class="q"><label>What should Will avoid doing when I am overwhelmed?</label><textarea data-key="a13"></textarea></div>
+  </section>
+
+  <section class="card" id="s5">
+    <h2><span class="num">05</span>Honesty, Communication & Trust</h2>
+    <div class="q"><label>How can I tell Will when I am struggling or having cravings?</label><textarea data-key="a14"></textarea></div>
+    <div class="q"><label>What would help me feel comfortable asking for support?</label><textarea data-key="a15"></textarea></div>
+    <div class="q"><label>How can we handle disagreements without making things worse?</label><textarea data-key="a16"></textarea></div>
+    <div class="q"><label>If one of us needs space, when and how will we reconnect?</label><textarea data-key="a17"></textarea></div>
+  </section>
+
+  <section class="card" id="s6">
+    <h2><span class="num">06</span>Sobriety & Relapse Prevention</h2>
+    <div class="q"><label>What are my biggest triggers for substance use?</label><textarea data-key="a18"></textarea></div>
+    <div class="q"><label>What are three things I will try when I have cravings?</label><textarea data-key="a19"></textarea></div>
+    <div class="q"><label>Who can I reach out to besides Will?</label><textarea data-key="a20"></textarea></div>
+    <div class="q"><label>If I relapse, how will I reconnect with professional support?</label><textarea data-key="a21"></textarea></div>
+  </section>
+
+  <section class="card" id="s7">
+    <h2><span class="num">07</span>If My Program Ends or I Lose Access</h2>
+    <div class="q"><label>My next therapist or mental health provider (name / phone):</label><textarea data-key="a22"></textarea></div>
+    <div class="q"><label>Recovery meetings, outpatient care, or other support:</label><textarea data-key="a23"></textarea></div>
+    <div class="q"><label>Medication management or prescription continuity, if needed:</label><textarea data-key="a24"></textarea></div>
+    <div class="q"><label>Treatment or probation requirements to address:</label><textarea data-key="a25"></textarea></div>
+    <div class="q"><label>Daily routine to maintain structure and stability:</label><textarea data-key="a26"></textarea></div>
+    <div class="q"><label>Who can help arrange continued care before my program ends?</label><textarea data-key="a27"></textarea></div>
+  </section>
+
+  <section class="card" id="s8">
+    <h2><span class="num">08</span>Emergency Support Plan</h2>
+    <div class="q"><label>Trusted contact #1 (name / phone):</label><textarea data-key="a28" style="min-height:56px"></textarea></div>
+    <div class="q"><label>Trusted contact #2 (name / phone):</label><textarea data-key="a29" style="min-height:56px"></textarea></div>
+    <div class="q"><label>Therapist, treatment provider, or crisis contact (name / phone):</label><textarea data-key="a30" style="min-height:56px"></textarea></div>
+    <div class="q"><label>Preferred hospital or crisis center:</label><textarea data-key="a31" style="min-height:56px"></textarea></div>
+    <div class="q"><label>If I cannot keep myself safe, our immediate steps are:</label><textarea data-key="a32"></textarea></div>
+  </section>
+
+  <section class="card" id="s9">
+    <h2><span class="num">09</span>Our Agreement</h2>
+    <p class="intro">We agree to communicate honestly, respect boundaries, seek help when needed, and work toward a safe, supportive environment.</p>
+    <div class="sign">
+      <div class="q"><label>Aubrey's biggest needs from Will:</label><textarea data-key="a33"></textarea></div>
+      <div class="q"><label>Will's needs for supporting Aubrey in a healthy way:</label><textarea data-key="a34"></textarea></div>
+      <div class="q"><label>One thing Aubrey commits to:</label><textarea data-key="a35"></textarea></div>
+      <div class="q"><label>One thing Will commits to:</label><textarea data-key="a36"></textarea></div>
+    </div>
+    <div class="q"><label>Date completed / date we will review this plan:</label><textarea data-key="a37" style="min-height:56px"></textarea></div>
+  </section>
+
+  <!-- LISTS -->
+  <section class="card" id="lists">
+    <h2><span class="num">+</span>Our Lists</h2>
+    <p class="intro">Anything we want to keep track of — goals, reminders, things to do together, meeting times. Make as many lists as you want.</p>
+    <div class="lists" id="listsBox"></div>
+    <div class="addrow" style="margin-top:14px"><input id="listInput" placeholder="New list name (e.g. Things that help, Goals, Date ideas)…" maxlength="80"><button class="pink" id="listAdd">New list</button></div>
+  </section>
+
+  <footer>A shared plan <span>•</span> Fill in together <span>•</span> Review with the treatment team</footer>
+</div>
+
+<div class="lightbox" id="lightbox"><img id="lightboxImg" alt=""></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+/* ============================================================
+   CONFIG — paste your Firebase web config here (see README.md)
+   Leave apiKey empty to run in local-only mode (saves on this
+   device only, no live sync).
+   ============================================================ */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyCHvsMFk0UOsfL5rCBqZFts-QkIAKWNnfY",
+  authDomain: "aubrey-c4c9d.firebaseapp.com",
+  databaseURL: "https://aubrey-c4c9d-default-rtdb.firebaseio.com",
+  projectId: "aubrey-c4c9d",
+  storageBucket: "aubrey-c4c9d.firebasestorage.app",
+  messagingSenderId: "126918096545",
+  appId: "1:126918096545:web:c10593636ebac6e6e6e2e0"
+};
+const PASSCODE = "";            // optional, e.g. "1234". Leave "" for no passcode.
+const ROOT = "aubrey-plan";     // path in the database where everything is stored
+
+const PHOTOS = [ "images/car-smile.jpg","images/plane-smile.jpg","images/car-pucker.jpg" ]; // extra photos shown under the whys // the three photos at the top of My Why are set directly in the .why-strip HTML
+const DEFAULT_WHYS = [];
+
+/* ---------- storage layer (Firebase or localStorage) ---------- */
+const useFirebase = !!FIREBASE_CONFIG.apiKey;
+let db = null;
+const $ = s => document.querySelector(s);
+const dot = $('#dot'), statusText = $('#statusText'), banner = $('#banner');
+function setStatus(cls, txt){ dot.className = 'dot ' + cls; statusText.textContent = txt; }
+
+const store = {
+  listeners: {},
+  on(path, cb){
+    if (useFirebase) {
+      db.ref(ROOT + '/' + path).on('value', snap => cb(snap.val()));
+    } else {
+      this.listeners[path] = cb;
+      cb(this.localGet(path));
+    }
+  },
+  set(path, val){
+    setStatus('saving', 'Saving…');
+    if (useFirebase) {
+      db.ref(ROOT + '/' + path).set(val).then(() => setStatus('ok', 'Saved · live')).catch(e => { setStatus('err', 'Save failed'); console.error(e); });
+    } else {
+      const all = JSON.parse(localStorage.getItem(ROOT) || '{}');
+      const parts = path.split('/'); let node = all;
+      for (let i = 0; i < parts.length - 1; i++) { if (typeof node[parts[i]] !== 'object' || node[parts[i]] === null) node[parts[i]] = {}; node = node[parts[i]]; }
+      if (val === null || val === undefined) delete node[parts.at(-1)]; else node[parts.at(-1)] = JSON.parse(JSON.stringify(val));
+      localStorage.setItem(ROOT, JSON.stringify(all));
+      setStatus('ok', 'Saved on this device');
+      // notify any listener on this path or an ancestor of it
+      Object.keys(this.listeners).forEach(p => { if (path === p || path.startsWith(p + '/')) this.listeners[p](this.localGet(p)); });
+    }
+  },
+  localGet(path){
+    let node = JSON.parse(localStorage.getItem(ROOT) || '{}');
+    for (const k of path.split('/')) { if (node === null || typeof node !== 'object' || !(k in node)) return null; node = node[k]; }
+    return node;
+  }
+};
+
+if (useFirebase) {
+  firebase.initializeApp(FIREBASE_CONFIG);
+  db = firebase.database();
+  db.ref('.info/connected').on('value', s => setStatus(s.val() ? 'ok' : 'err', s.val() ? 'Live · synced' : 'Offline — will sync when back'));
+} else {
+  setStatus('', 'Local only');
+  banner.textContent = 'Live sync is off — add your Firebase config in index.html so you and Aubrey can edit this together. Right now changes only save on this device.';
+  banner.classList.add('show');
+}
+
+/* ---------- passcode gate (simple, client-side) ---------- */
+if (PASSCODE) {
+  if (localStorage.getItem(ROOT + ':unlocked') !== PASSCODE) {
+    $('#gate').classList.add('show');
+    $('#gateForm').addEventListener('submit', e => {
+      e.preventDefault();
+      if ($('#gateInput').value === PASSCODE) { localStorage.setItem(ROOT + ':unlocked', PASSCODE); $('#gate').classList.remove('show'); }
+      else { $('#gateInput').value = ''; $('#gateInput').placeholder = 'Try again'; }
+    });
+  }
+}
+
+/* ---------- answers (textareas) ---------- */
+const editingIn = el => { const a = document.activeElement; return a && el.contains(a) && a.isContentEditable; };
+const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+document.querySelectorAll('textarea[data-key]').forEach(ta => {
+  const key = ta.dataset.key;
+  store.on('answers/' + key, v => { if (document.activeElement !== ta) ta.value = v || ''; });
+  ta.addEventListener('input', debounce(() => store.set('answers/' + key, ta.value), 500));
+  ta.addEventListener('blur', () => store.set('answers/' + key, ta.value));
+});
+
+/* ---------- why captions (editable, synced) ---------- */
+document.querySelectorAll('.why-caption[data-cap]').forEach(el => {
+  const key = 'captions/' + el.dataset.cap;
+  store.on(key, v => { if (v && document.activeElement !== el) el.innerHTML = v; });
+  el.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); el.blur(); } });
+  el.addEventListener('blur', () => store.set(key, el.innerHTML));
+});
+/* ---------- my why list ---------- */
+let whys = null;
+const whyList = $('#whyList');
+function renderWhys(){
+  whyList.innerHTML = '';
+  whys.forEach((w, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="heart">♥</span><div class="txt" contenteditable="true" spellcheck="false"></div><button class="del" title="Remove">✕</button>`;
+    li.querySelector('.txt').textContent = w;
+    li.querySelector('.txt').addEventListener('blur', e => { const t = e.target.textContent.trim(); if (t !== whys[i]) { whys[i] = t; store.set('whys', whys); } });
+    li.querySelector('.txt').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); } });
+    li.querySelector('.del').addEventListener('click', () => { if (confirm('Remove this why?')) { whys.splice(i, 1); store.set('whys', whys); } });
+    whyList.appendChild(li);
+  });
+}
+store.on('whys', v => {
+  if (!v) { whys = [...DEFAULT_WHYS]; }
+  else whys = Array.isArray(v) ? v : Object.values(v);
+  if (!editingIn(whyList)) renderWhys();
+});
+function addWhy(){ const t = $('#whyInput').value.trim(); if (!t) return; whys.push(t); $('#whyInput').value = ''; store.set('whys', whys); }
+$('#whyAdd').addEventListener('click', addWhy);
+$('#whyInput').addEventListener('keydown', e => { if (e.key === 'Enter') addWhy(); });
+
+/* ---------- custom lists ---------- */
+let lists = {};
+const listsEl = $("#listsBox");
+function renderLists(){
+  listsEl.innerHTML = '';
+  const ids = Object.keys(lists).sort((a, b) => (lists[a].created || 0) - (lists[b].created || 0));
+  if (!ids.length) { listsEl.innerHTML = '<p class="intro" style="margin:0">No lists yet — make one below.</p>'; return; }
+  ids.forEach(id => {
+    const L = lists[id]; const items = L.items ? (Array.isArray(L.items) ? L.items : Object.values(L.items)) : [];
+    const box = document.createElement('div'); box.className = 'list';
+    box.innerHTML = `<div class="head"><div class="title" contenteditable="true" spellcheck="false"></div><button class="del" title="Delete list">✕</button></div><ul></ul>
+      <div class="addrow"><input placeholder="Add item…" maxlength="300"><button class="pink">Add</button></div>`;
+    box.querySelector('.title').textContent = L.name || 'Untitled';
+    box.querySelector('.title').addEventListener('blur', e => { const t = e.target.textContent.trim() || 'Untitled'; if (t !== L.name) store.set('lists/' + id + '/name', t); });
+    box.querySelector('.title').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); } });
+    box.querySelector('.head .del').addEventListener('click', () => { if (confirm('Delete the whole list "' + L.name + '"?')) store.set('lists/' + id, null); });
+    const ul = box.querySelector('ul');
+    items.forEach((it, i) => {
+      const li = document.createElement('li'); if (it.done) li.className = 'done';
+      li.innerHTML = `<input type="checkbox" ${it.done ? 'checked' : ''}><div class="txt" contenteditable="true" spellcheck="false"></div><button class="del" title="Remove">✕</button>`;
+      li.querySelector('.txt').textContent = it.text;
+      li.querySelector('input').addEventListener('change', e => { items[i].done = e.target.checked; store.set('lists/' + id + '/items', items); });
+      li.querySelector('.txt').addEventListener('blur', e => { const t = e.target.textContent.trim(); if (t !== items[i].text) { items[i].text = t; store.set('lists/' + id + '/items', items); } });
+      li.querySelector('.txt').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); } });
+      li.querySelector('.del').addEventListener('click', () => { items.splice(i, 1); store.set('lists/' + id + '/items', items); });
+      ul.appendChild(li);
+    });
+    const inp = box.querySelector('.addrow input');
+    const add = () => { const t = inp.value.trim(); if (!t) return; items.push({ text: t, done: false }); inp.value = ''; store.set('lists/' + id + '/items', items); };
+    box.querySelector('.addrow button').addEventListener('click', add);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+    listsEl.appendChild(box);
+  });
+}
+store.on('lists', v => { lists = v || {}; if (!editingIn(listsEl)) renderLists(); });
+function addList(){ const t = $('#listInput').value.trim(); if (!t) return; const id = 'l' + Date.now(); $('#listInput').value = ''; store.set('lists/' + id, { name: t, created: Date.now(), items: [] }); }
+$('#listAdd').addEventListener('click', addList);
+$('#listInput').addEventListener('keydown', e => { if (e.key === 'Enter') addList(); });
+
+/* ---------- gallery ---------- */
+const gallery = $('#gallery'), lb = $('#lightbox'), lbImg = $('#lightboxImg');
+PHOTOS.forEach(src => { const img = document.createElement('img'); img.src = src; img.loading = 'lazy'; img.alt = 'Us'; img.addEventListener('click', () => { lbImg.src = src; lb.classList.add('show'); }); gallery.appendChild(img); });
+document.querySelectorAll('.why-strip img').forEach(img => img.addEventListener('click', () => { lbImg.src = img.src; lb.classList.add('show'); }));
+lb.addEventListener('click', () => lb.classList.remove('show'));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('show'); });
+</script>
+</body>
+</html>
